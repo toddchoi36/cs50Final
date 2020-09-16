@@ -39,97 +39,11 @@ Session(app)
 engine = create_engine("")
 db = scoped_session(sessionmaker(bind=engine))
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET")
 @login_required
 def index():
     """Show portfolio of stocks"""
-    if request.method == "GET":
-        assets = db.execute("SELECT * FROM assets WHERE userid =:userID ORDER BY symbol", {"userID": session["user_id"]}).fetchall()
-        user_cash = db.execute("SELECT cash FROM users WHERE id =:id", {"id": session["user_id"]}).fetchall()
-        for row in user_cash:
-            cash = row[0]
-
-        display_assets = []
-        shares_total = 0
-        hope = request.form.getlist('hope[]')
-
-        for row in assets:
-            Symbol = row["symbol"]
-            Stock = lookup(Symbol) #create dictionary to look up current price for Price column
-            Name = row["companyname"]
-            Shares = row["shares"]
-            Price = float(Stock["price"])
-            Total = float(Shares)*Price #Total column of table for each stock
-            shares_total = shares_total + Total #total of all shares in the table... to be added with cash to generate grand total
-            display_assets.append({'Symbol':Symbol, 'CompanyName':Name, 'Shares':Shares, 'Price':Price, 'Total':Total})
-
-        grand_total = shares_total + int(cash)
-        return render_template("index.html", display_assets=display_assets, cash=cash, grand_total=grand_total, hope=hope)
-
-    else:
-        if not request.form.get("options"): #make sure to choose buy or sell
-            return apology("choose buy or sell", 403)
-
-        option = request.form['options']
-        if option =="buy":
-            assets = db.execute("SELECT Symbol FROM assets WHERE userID =:userID ORDER BY symbol", {"userID": session["user_id"]})
-            a = 0 #initalize buy share getlist
-            for row in assets:
-                Symbol = row["symbol"]
-                Stock = lookup(Symbol)
-                buy_share = int(request.form.getlist("buy_sell_qty")[a])
-                db.execute("UPDATE assets SET Shares = Shares + :buy_share, Price=:Price WHERE userID=:id AND Symbol=:symbol", {"buy_share": buy_share, "id": session["user_id"], "symbol": Symbol, "Price": Stock["price"]})
-
-                user_cash = db.execute("SELECT cash FROM users WHERE id=:id", {"id": session["user_id"]})
-                for row in user_cash:
-                    cash = row[0]
-                new_cash = cash - buy_share * int(Stock["price"])
-                if new_cash < 0:
-                    return apology("not enough money", 403)
-                db.execute("UPDATE users SET cash =:new_cash WHERE id=:id", {"new_cash": new_cash, "id": session["user_id"]})
-                db.commit()
-
-                if buy_share != 0: #only add to history if buy qty is not 0
-                    db.execute("INSERT INTO history (user_ID, Symbol, Shares, Price) VALUES(:userID, :Symbol, :buy_share, :Price)", {"userID": session["user_id"], "Symbol": Symbol, "buy_share": buy_share, "Price": Stock["price"]})
-                    db.commit()
-                a = a + 1 #increment row
-
-            return redirect("/")
-
-        elif option =="sell":
-            assets = db.execute("SELECT * FROM assets WHERE userID =:userID ORDER BY symbol", {"userID": session["user_id"]})
-            a = 0 #initalize buy share getlist
-            for row in assets:
-                Symbol = row["symbol"]
-                Shares = row["shares"]
-                Stock = lookup(Symbol)
-                sell_share = int(request.form.getlist("buy_sell_qty")[a])
-                if Shares < sell_share:
-                    return apology("not enough shares")
-                elif Shares == sell_share:
-                    db.execute("UPDATE assets SET Shares = Shares - :sell_share, Price=:Price WHERE userID=:id AND Symbol=:symbol", {"sell_share": sell_share, "id": session["user_id"], "symbol":Symbol, "Price":Stock["price"]})
-                    db.execute("DELETE FROM assets WHERE userID=:id AND Symbol=:Symbol", {"id": session["user_id"], "Symbol":Symbol})
-                    db.commit()
-                else:
-                    db.execute("UPDATE assets SET Shares = Shares - :sell_share, Price=:Price WHERE userID=:id AND Symbol=:symbol", {"sell_share": sell_share, "id": session["user_id"], "symbol":Symbol, "Price":Stock["price"]})
-                    db.commit()
-
-                user_cash = db.execute("SELECT cash FROM users WHERE id=:id", {"id": session["user_id"]})
-                for row in user_cash:
-                    cash = row[0]
-                new_cash = cash + sell_share * int(Stock["price"])
-
-                db.execute("UPDATE users SET cash =:new_cash WHERE id=:id", {"new_cash": new_cash, "id": session["user_id"]})
-                db.commit()
-                if sell_share != 0: #only add to history if buy qty is not 0
-                    db.execute("INSERT INTO history (user_ID, Symbol, Shares, Price) VALUES(:userID, :Symbol, :sell_share, :Price)", {"userID":session["user_id"], "Symbol": Symbol, "sell_share": 0-float(sell_share), "Price": Stock["price"]})
-                    db.commit()
-                    
-                a = a + 1 #increment to next row for getlist
-
-            return redirect("/")
-
-
+     return redirect("/")
 
 
 
