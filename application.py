@@ -39,7 +39,7 @@ Session(app)
 engine = create_engine("")
 db = scoped_session(sessionmaker(bind=engine))
 
-@app.route("/", methods=["GET")
+@app.route("/", methods=["GET"])
 @login_required
 def index():
     """Show portfolio of stocks"""
