@@ -43,7 +43,7 @@ db = scoped_session(sessionmaker(bind=engine))
 @login_required
 def index():
     """Show portfolio of stocks"""
-     return redirect("/")
+    return redirect("/")
 
 
 
