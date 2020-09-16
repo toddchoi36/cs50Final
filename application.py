@@ -36,7 +36,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Configure postgress
-engine = create_engine("")
+engine = create_engine("postgres://axsjbatuinzkdr:5f6713832d769e73ceaf17e580665fce3161c61a206ee6dd0f7803125c8f0123@ec2-23-23-36-227.compute-1.amazonaws.com:5432/d88q9qg34dtglm")
 db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/", methods=["GET"])
@@ -61,9 +61,9 @@ def importcsv():
         f = open(filename)
         reader = csv.reader(f)
 
-        for x, y, z in reader:
-            db.execute("INSERT INTO Sales")
-        db.commit
+        #for x, y, z in reader:
+        #    db.execute("INSERT INTO Sales")
+        #db.commit
 
         return redirect("/")
 
