@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <form action="/" method="post">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Company Name</th>
+                    <th>Shares</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for row in display_assets %}
+                
+                {% endfor %}
+
+                <td>Cash</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ cash | usd }}</td>
+            </tbody>
+
+            <tfoot>
+            </tfoot>
+        </table>
+    </form>
+{% endblock %}
