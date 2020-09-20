@@ -11,30 +11,9 @@
             <input class="form-control" name="date" placeholder="Date" type="date">
         </div>
 
-        <input type="file" id="real-file" hidden="hidden" />
-        <button type="button" id="custom-button">CHOOSE A FILE</button>
-        <span id="custom-text">No file chosen, yet.</span>
 
-        <script type="text/javascript">
-            const realFileBtn = document.getElementById("real-file");
-            const customBtn = document.getElementById("custom-button");
-            const customTxt = document.getElementById("custom-text");
+        <input type ="file" class ="custom-file-input" name="csv" id="csv"/>
 
-            customBtn.addEventListener("click", function() {
-            realFileBtn.click();
-            });
-
-            realFileBtn.addEventListener("change", function() {
-                if (realFileBtn.value) {
-                    customTxt.innerHTML = realFileBtn.value.match(
-                        /[\/\\]([\w\d\s\.\-\(\)]+)$/
-                    )[1];
-                } else {
-                    customTxt.innerHTML = "No file chosen, yet.";
-                }
-            });
-
-        </script>
 
         <button class="btn btn-primary" type="submit">Import</button>
     </form>
