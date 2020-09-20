@@ -4,6 +4,7 @@
     Import
 {% endblock %}
 
+{% block main %}
     <form action="/import" method="post">
 
         <div class="form-group">
@@ -17,7 +18,7 @@
                 <label class="custom-file-label" for="csv">Choose a file...</label>
             </div>
         </div>
-        
+
         <button class="btn btn-primary" type="submit">Import</button>
     </form>
 
