@@ -54,19 +54,18 @@ def importcsv():
     if request.method == "GET":
         return render_template("import.html")
     else:
-        if not request.form.get("csv"):
-            return apology("enter csv file", 403)
+        if request.files:
+            filename = request.files["csv"]
+            f = open(filename)
+            reader = csv.reader(f)
 
-        filename = request.form.get("csv")
-        f = open(filename)
-        reader = csv.reader(f)
-
-        date = request. form.get("date")
-        for Item, Sales, Percentage, Quantity in reader:
-            db.execute("INSERT INTO sales (item, sales amount, percentage, quantity, date) VALUES (:item, :sales_amount, :percentage, :quantity, :date)", 
-                {"item": item, "sales_amount": Sales, "percentage": percentage, "quantity": quantity, "date": date})
-        db.commit
-
+            date = request.form.get("date")
+            for Item, Sales, Percentage, Quantity in reader:
+                db.execute("INSERT INTO sales (item, sales amount, percentage, quantity, date) VALUES (:item, :sales_amount, :percentage, :quantity, :date)", 
+                    {"item": item, "sales_amount": Sales, "percentage": percentage, "quantity": quantity, "date": date})
+            db.commit
+        else:
+            return apology("upload file", 403)
 
 
         return redirect("/")
