@@ -1,4 +1,4 @@
-import os, sqlalchemy
+import os, sqlalchemy, csv
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -61,9 +61,13 @@ def importcsv():
         f = open(filename)
         reader = csv.reader(f)
 
-        #for x, y, z in reader:
-        #    db.execute("INSERT INTO Sales")
-        #db.commit
+        date = request. form.get("date")
+        for Item, Sales Amount, Percentage, Quantity in reader:
+            db.execute("INSERT INTO sales (item, sales amount, percentage, quantity, date) VALUES (:item, :sales_amount, :percentage, :quantity, :date)", 
+                {"item": item, "sales_amount": Sales Amount, "percentage": percentage, "quantity": quantity, "date": date})
+        db.commit
+
+
 
         return redirect("/")
 
