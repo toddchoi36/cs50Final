@@ -4,10 +4,20 @@
     Import
 {% endblock %}
 
-{% block main %}
-    <input type ="file" id ="file"/>
-
     <form action="/import" method="post">
+
+        <div class="form-group">
+            <input class="form-control" name="date" placeholder="Date" type="date">
+        </div>
+
+        <div class="form-group">
+            <label>Choose File</label>
+            <div class="custom-file">
+                <input type ="file" class ="custom-file-input" name="csv" id="csv">
+                <label class="custom-file-label" for="csv">Choose a file...</label>
+            </div>
+        </div>
+        
         <button class="btn btn-primary" type="submit">Import</button>
     </form>
 
