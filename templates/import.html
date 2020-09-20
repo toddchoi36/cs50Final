@@ -6,9 +6,8 @@
 
 {% block main %}
     <form action="/import" method="post">
-        <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="csv" placeholder="Filename" type="text">
-        </div>
+        <button type ="button" id="custom-button">CHOOSE A FILE</button>
+        <span id="custom-text">No file chosen</span>
         <button class="btn btn-primary" type="submit">Import</button>
     </form>
 {% endblock %}
