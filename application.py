@@ -58,6 +58,7 @@ def importcsv():
         #sales_file.save(os.path.join(app.config["SALES_DATA"], sales_file.filename))
         f = open("sales/sample.csv")
         reader = csv.reader(f)
+        date = request.form.get("date")
 
         for Item, Sales, Percentage, Quantity in reader:
            db.execute("INSERT INTO sales (item, sales amount, percentage, quantity, date) VALUES (:item, :sales_amount, :percentage, :quantity, :date)", 
