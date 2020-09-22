@@ -54,7 +54,7 @@ def importcsv():
     if request.method == "GET":
         return render_template("import.html")
     else:
-        file = request.files["csv"]
+        file = request.files['csv']
         #f = open(filename)
         #reader = csv.reader(f)
         return file.filename
