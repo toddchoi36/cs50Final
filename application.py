@@ -46,7 +46,7 @@ def index():
     return render_template("import.html")
 
 
-
+app.config["SALES_DATA"] = "/c/Users/toddc/Final/sales"
 @app.route("/import", methods=["GET", "POST"])
 @login_required
 def importcsv():
@@ -54,14 +54,15 @@ def importcsv():
     if request.method == "GET":
         return render_template("import.html")
     else:
-        file = request.files['csv']
-        #f = open(filename)
-        #reader = csv.reader(f)
-        return file.filename
-        #for Item, Sales, Percentage, Quantity in reader:
-         #   db.execute("INSERT INTO sales (item, sales amount, percentage, quantity, date) VALUES (:item, :sales_amount, :percentage, :quantity, :date)", 
-          #         {"item": item, "sales_amount": Sales, "percentage": percentage, "quantity": quantity, "date": date})
-        #db.commit
+        sales_file = request.files['csv']
+        sales_file.save(os.path.join(app.config["SALES_DATA"], sales_file.filename))
+        f = open(sales_file)
+        reader = csv.reader(f)
+
+        for Item, Sales, Percentage, Quantity in reader:
+           db.execute("INSERT INTO sales (item, sales amount, percentage, quantity, date) VALUES (:item, :sales_amount, :percentage, :quantity, :date)", 
+                {"item": item, "sales_amount": Sales, "percentage": percentage, "quantity": quantity, "date": date})
+        db.commit
 
 
 
