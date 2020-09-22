@@ -61,7 +61,7 @@ def importcsv():
         date = request.form.get("date")
 
         for item, sales, percentage, quantity in reader:
-           db.execute("INSERT INTO sales (item, sales amount, percentage, quantity, date) VALUES (:item, :sales_amount, :percentage, :quantity, :date)", 
+           db.execute("INSERT INTO sales (item, sales_amount, percentage, quantity, date) VALUES (:item, :sales_amount, :percentage, :quantity, :date)", 
                 {"item": item, "sales_amount": sales, "percentage": percentage, "quantity": quantity, "date": date})
         db.commit
 
