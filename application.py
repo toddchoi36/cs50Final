@@ -65,11 +65,7 @@ def importcsv():
                 {"userid": session["user_id"], "item": item, "sales_amount": sales_amount, "percentage": percentage, "quantity": quantity, "date": date})
         db.commit
 
-
-
-
-
-        #return redirect("/")
+        return redirect("/")
 
 
 @app.route("/login", methods=["GET", "POST"])
