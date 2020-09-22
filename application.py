@@ -67,7 +67,7 @@ def importcsv():
 
 
 
-        return redirect("/")
+        #return redirect("/")
 
 
 @app.route("/login", methods=["GET", "POST"])
