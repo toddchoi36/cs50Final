@@ -56,7 +56,7 @@ def importcsv():
     else:
         #sales_file = request.files['csv']
         #sales_file.save(os.path.join(app.config["SALES_DATA"], sales_file.filename))
-        f = open("sample.csv")
+        f = open("sales/sample.csv")
         reader = csv.reader(f)
 
         for Item, Sales, Percentage, Quantity in reader:
