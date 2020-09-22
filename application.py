@@ -60,9 +60,9 @@ def importcsv():
         reader = csv.reader(f)
         date = request.form.get("date")
 
-        for item, sales_amount, percentage, quantity in reader:
-           db.execute("INSERT INTO sales (userid, item, sales_amount, percentage, quantity, date) VALUES (:userid, :item, :sales_amount, :percentage, :quantity, :date)", 
-                {"userid": session["user_id"], "item": item, "sales_amount": sales_amount, "percentage": percentage, "quantity": quantity, "date": date})
+        for item, sales_amount, quantity in reader:
+           db.execute("INSERT INTO sales (userid, item, sales_amount, quantity, date) VALUES (:userid, :item, :sales_amount, :quantity, :date)", 
+                {"userid": session["user_id"], "item": item, "sales_amount": sales_amount, "quantity": quantity, "date": date})
         db.commit
 
         return redirect("/")
