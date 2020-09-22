@@ -46,7 +46,7 @@ def index():
     return render_template("import.html")
 
 
-app.config["SALES_DATA"] = "/c/Users/toddc/Final/sales"
+
 @app.route("/import", methods=["GET", "POST"])
 @login_required
 def importcsv():
@@ -61,8 +61,8 @@ def importcsv():
         date = request.form.get("date")
 
         for item, sales_amount, quantity in reader:
-           db.execute("INSERT INTO sales (userid, item, sales_amount, quantity, date) VALUES (:userid, :item, :sales_amount, :quantity, :date)", 
-                {"userid": session["user_id"], "item": item, "sales_amount": sales_amount, "quantity": quantity, "date": date})
+           db.execute("INSERT INTO sales(item, sales_amount, quantity) VALUES(:item, :sales_amount, :quantity)", 
+                {"item": item, "sales_amount": sales_amount, "quantity": quantity})
         db.commit
 
         return redirect("/")
