@@ -54,10 +54,10 @@ def importcsv():
     if request.method == "GET":
         return render_template("import.html")
     else:
-        filename = request.files["csv"]
-        f = open(filename)
-        reader = csv.reader(f)
-        return filename.filename
+        file = request.files["csv"]
+        #f = open(filename)
+        #reader = csv.reader(f)
+        return file.filename
         #for Item, Sales, Percentage, Quantity in reader:
          #   db.execute("INSERT INTO sales (item, sales amount, percentage, quantity, date) VALUES (:item, :sales_amount, :percentage, :quantity, :date)", 
           #         {"item": item, "sales_amount": Sales, "percentage": percentage, "quantity": quantity, "date": date})
