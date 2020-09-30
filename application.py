@@ -56,7 +56,7 @@ def importcsv():
     else:
         #sales_file = request.files['csv']
         #sales_file.save(os.path.join(app.config["SALES_DATA"], sales_file.filename))
-        f = open("flights.csv")
+        f = open("sample.csv")
         read = csv.reader(f)
         date = request.form.get("date")
 
