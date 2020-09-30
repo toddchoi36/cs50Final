@@ -56,13 +56,13 @@ def importcsv():
     else:
         #sales_file = request.files['csv']
         #sales_file.save(os.path.join(app.config["SALES_DATA"], sales_file.filename))
-        f = open("sample.csv")
+        f = open("flights.csv")
         read = csv.reader(f)
         date = request.form.get("date")
 
         for item, salesamount, quantity in read:
             db.execute("INSERT INTO sales(item, sales_amount, quantity) VALUES(:item, :sales_amount, :quantity)", 
-                {"item": item, "sales_amount": salesamount, "quantity": quantity})
+                {"item": item, "sales_amount": salesamount, "quantity": quantity}) 
         db.commit
 
         return redirect("/")
