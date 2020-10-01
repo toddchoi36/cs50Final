@@ -101,7 +101,7 @@ def login():
         session["user_id"] = sessionid
 
         # Redirect user to home page
-        return redirect("import.html")
+        return render_template("import.html")
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
