@@ -52,7 +52,7 @@ def index():
 def importcsv():
     """import csv files"""
     if request.method == "GET":
-        return render_template("import.html")
+        return render_template("sample.html")
     else:
         #sales_file = request.files['csv']
         #sales_file.save(os.path.join(app.config["SALES_DATA"], sales_file.filename))
