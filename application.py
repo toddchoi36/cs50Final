@@ -94,13 +94,13 @@ def login():
         if db.execute("SELECT * FROM users WHERE username = :username", {"username":request.form.get("username")}).rowcount != 1:
             if check_password_hash(rows[0]["hash"], request.form.get("password")):
                 return apology("invalid username and/or password", 403)
-            else:
-                # Remember which user has logged in
-                username = request.form.get("username") 
-                user = db.execute("SELECT id FROM users WHERE username =:username", {"username": username}).fetchone()
-                db.commit
-                sessionid = (''.join(map(str, user)))
-                session["user_id"] = sessionid
+ 
+        # Remember which user has logged in
+        username = request.form.get("username") 
+        user = db.execute("SELECT id FROM users WHERE username =:username", {"username": username}).fetchone()
+        db.commit
+        sessionid = (''.join(map(str, user)))
+        session["user_id"] = sessionid
 
 
 
