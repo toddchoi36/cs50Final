@@ -157,7 +157,7 @@ def register():
             
             user = db.execute("SELECT * FROM users WHERE username =:username", {"username": username})
             db.commit
-            for r in users:
+            for r in user:
                 sessionid = r[0]
                 session["user_id"] = sessionid
             
