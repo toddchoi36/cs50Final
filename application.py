@@ -52,17 +52,17 @@ def index():
 def importcsv():
     """import csv files"""
     if request.method == "GET":
-        return render_template("sample.html")
+        return render_template("import.html")
     else:
         #sales_file = request.files['csv']
         #sales_file.save(os.path.join(app.config["SALES_DATA"], sales_file.filename))
-        f = open("flights.csv")
+        f = open("sample.csv")
         read = csv.reader(f)
         date = request.form.get("date")
 
         for item, salesamount, quantity in read:
-            db.execute("INSERT INTO sales(item, sales_amount, quantity) VALUES(:item, :sales_amount, :quantity)", 
-                {"item": item, "sales_amount": salesamount, "quantity": quantity}) 
+            db.execute("INSERT INTO sales(userid, item, sales_amount, quantity) VALUES(:userid, :item, :sales_amount, :quantity)", 
+                {"userid": session["user_id"], "item": item, "sales_amount": salesamount, "quantity": quantity}) 
         db.commit
 
         return redirect("/")
