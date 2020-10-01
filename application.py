@@ -106,7 +106,7 @@ def login():
 
 
         # Redirect user to home page
-        return render_template("import.html")
+        return redirect("/")
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
