@@ -43,7 +43,7 @@ db = scoped_session(sessionmaker(bind=engine))
 @login_required
 def index():
     
-    return render_template("import.html")
+    return apology("hope", 403)
 
 
 
