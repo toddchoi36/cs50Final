@@ -155,11 +155,10 @@ def register():
             db.execute("INSERT INTO users(username, hash) VALUES(:username, :hash)", {"username": username, "hash": password})
             db.commit()
             
-            user = db.execute("SELECT * FROM users WHERE username =:username", {"username": username})
+            user = db.execute("SELECT id FROM users WHERE username =:username", {"username": username}).fetchone()
             db.commit
-            for r in user:
-                sessionid = r[0]
-                session["user_id"] = sessionid
+            sessionid = (''.join(map(str, user)))
+            session["user_id"] = sessionid
             
             return redirect("/")
         else:
