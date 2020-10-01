@@ -62,7 +62,7 @@ def importcsv():
 
         for item, salesamount, quantity in read:
             db.execute("INSERT INTO sales(userid, item, sales_amount, quantity) VALUES(:userid, :item, :sales_amount, :quantity)", 
-                {"userid": sessionid, "item": item, "sales_amount": salesamount, "quantity": quantity}) 
+                {"userid": session["user_id"], "item": item, "sales_amount": salesamount, "quantity": quantity}) 
         db.commit
 
         return redirect("/")
