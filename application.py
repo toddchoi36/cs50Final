@@ -86,17 +86,18 @@ def login():
         elif not request.form.get("password"):
             return apology("must provide password", 403)
 
+        username = request.form.get("username")
         # Query database for username
         rows = db.execute("SELECT * FROM users WHERE username = :username",
-                        {"username":request.form.get("username")})
-
+                        {"username":username})
+        
         # Ensure username exists and password is correct
-        if db.execute("SELECT * FROM users WHERE username = :username", {"username":request.form.get("username")}).rowcount != 1:
+        if db.execute("SELECT * FROM users WHERE username =:username", {"username":username}).rowcount != 1:
             if check_password_hash(rows[0]["hash"], request.form.get("password")):
                 return apology("invalid username and/or password", 403)
  
         # Remember which user has logged in
-        username = request.form.get("username") 
+         
         user = db.execute("SELECT id FROM users WHERE username =:username", {"username": username}).fetchone()
         db.commit
         sessionid = (''.join(map(str, user)))
