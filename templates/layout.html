@@ -38,10 +38,10 @@
                         <li class="nav-item"><a class="nav-link" href="/import">Import</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
                         {% for row in username %}
                             <li>{{ row["username"] }}</li>
                         {% endfor %}
+                        <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
                     </ul>
                 {% else %}
                     <ul class="navbar-nav ml-auto mt-2">
