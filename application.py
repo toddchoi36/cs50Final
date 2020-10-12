@@ -98,10 +98,10 @@ def login():
  
         # Remember which user has logged in
          
-        user = db.execute("SELECT id FROM users WHERE username =:username", {"username": username}).fetchone()
-        db.commit
-        sessionid = (''.join(map(str, user)))
+        for r in rows:
+            sessionid = r[0]
         session["user_id"] = sessionid
+
 
 
 
@@ -161,7 +161,6 @@ def register():
             db.commit()
             
             user = db.execute("SELECT id FROM users WHERE username =:username", {"username": username}).fetchone()
-            db.commit
             sessionid = (''.join(map(str, user)))
             session["user_id"] = sessionid
             
