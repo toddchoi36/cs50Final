@@ -52,7 +52,7 @@ def index():
 def importcsv():
     """import csv files"""
     if request.method == "GET":
-        username = db.execute("SELECT username FROM users WHERE id =:id", {"id": session["user_id"]}).fetchone()
+        username = db.execute("SELECT username FROM users WHERE id =:id", {"id": session["user_id"]}).fetchall()
         return render_template("import.html", username=username)
     else:
         #sales_file = request.files['csv']
@@ -62,8 +62,8 @@ def importcsv():
         date = request.form.get("date")
 
         for item, salesamount, quantity in read:
-            db.execute("INSERT INTO sales(userid, item, sales_amount, quantity) VALUES(:userid, :item, :sales_amount, :quantity)", 
-                {"userid": session["user_id"], "item": item, "sales_amount": salesamount, "quantity": quantity}) 
+            db.execute("INSERT INTO sales(userid, item, sales_amount, quantity) VALUES(:id, :item, :sales_amount, :quantity)", 
+                {"id": session["user_id"], "item": item, "sales_amount": salesamount, "quantity": quantity}) 
         db.commit
 
         return redirect("/")
@@ -99,7 +99,8 @@ def login():
  
         # Remember which user has logged in
          
-        sessionid = (''.join(map(str, rows)))
+        for r in rows:
+            sessionid = r[0]
         session["user_id"] = sessionid
 
 
