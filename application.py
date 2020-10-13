@@ -62,8 +62,8 @@ def importcsv():
         date = request.form.get("date")
 
         for item, salesamount, quantity in read:
-            db.execute("INSERT INTO sales(userid, item, sales_amount, quantity) VALUES(:id, :item, :sales_amount, :quantity)", 
-                {"id": session["user_id"], "item": item, "sales_amount": salesamount, "quantity": quantity}) 
+            db.execute("INSERT INTO sales(userid, item, sales_amount, quantity, date) VALUES(:id, :item, :sales_amount, :quantity, :date)", 
+                {"id": session["user_id"], "item": item, "sales_amount": salesamount, "quantity": quantity, "date": date}) 
         db.commit()
 
         return redirect("/")
