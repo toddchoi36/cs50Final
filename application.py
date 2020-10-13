@@ -99,8 +99,7 @@ def login():
  
         # Remember which user has logged in
          
-        for r in rows:
-            sessionid = r[0]
+        sessionid = (''.join(map(str, rows)))
         session["user_id"] = sessionid
 
 
