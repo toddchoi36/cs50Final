@@ -52,7 +52,7 @@ def index():
 def importcsv():
     """import csv files"""
     if request.method == "GET":
-        username = db.execute("SELECT username FROM users WHERE id =:id", {"id": session["user_id"]}).fetchall()
+        username = db.execute("SELECT username FROM users WHERE id =:id", {"id": session["user_id"]}).fetchone()
         return render_template("import.html", username=username)
     else:
         #sales_file = request.files['csv']
