@@ -98,12 +98,9 @@ def login():
                 return apology("invalid username and/or password", 403)
  
         # Remember which user has logged in
-         
-        for r in rows:
-            sessionid = r[0]
+        user = db.execute("SELECT id FROM users WHERE username =:username", {"username": username}).fetchone()
+        sessionid = (''.join(map(str, user)))
         session["user_id"] = sessionid
-
-
 
 
         # Redirect user to home page
