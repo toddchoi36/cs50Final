@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <form action="/import" method="Post">
+    <form action="/import" method="Post" enctype="multipart/form-data">
         <div class="form-group">
             <input class="form-control" name="date" placeholder="Date" type="date">
         </div>
