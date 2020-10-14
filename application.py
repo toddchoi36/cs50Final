@@ -1,4 +1,4 @@
-import os, sqlalchemy, csv
+import os, sqlalchemy, csv, requests
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -39,6 +39,9 @@ Session(app)
 engine = create_engine("postgres://axsjbatuinzkdr:5f6713832d769e73ceaf17e580665fce3161c61a206ee6dd0f7803125c8f0123@ec2-23-23-36-227.compute-1.amazonaws.com:5432/d88q9qg34dtglm")
 db = scoped_session(sessionmaker(bind=engine))
 
+url = 'https://httpbin.org/post'
+file = 
+
 @app.route("/", methods=["GET"])
 @login_required
 def index():
@@ -55,9 +58,9 @@ def importcsv():
         username = db.execute("SELECT username FROM users WHERE id =:id", {"id": session["user_id"]}).fetchall()
         return render_template("import.html", username=username)
     else:
-        #sales_file = request.files['csv']
+        sales_file = request.files['csv']
         #sales_file.save(os.path.join(app.config["SALES_DATA"], sales_file.filename))
-        f = open("flights.csv")
+        f = open(sales_file)
         read = csv.reader(f)
         date = request.form.get("date")
 
