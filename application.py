@@ -43,8 +43,7 @@ db = scoped_session(sessionmaker(bind=engine))
 @app.route("/", methods=["GET"])
 @login_required
 def index(): 
-    username = db.execute("SELECT username FROM users WHERE id =:id", {"id": session["user_id"]}).fetchall()
-    return render_template("import.html", username=username)
+    return apology("hope", 403)
 
 
 @app.route("/import", methods=["GET", "POST"])
