@@ -7,6 +7,7 @@ from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask_uploads import UploadSet, configure_uploads
 
 from helpers import apology, login_required, usd
 
@@ -41,9 +42,9 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/", methods=["GET"])
 @login_required
-def index():
-    
-    return apology("hope", 403)
+def index(): 
+    username = db.execute("SELECT username FROM users WHERE id =:id", {"id": session["user_id"]}).fetchall()
+    return render_template("import.html", username=username)
 
 
 @app.route("/import", methods=["GET", "POST"])
@@ -54,7 +55,7 @@ def importcsv():
         username = db.execute("SELECT username FROM users WHERE id =:id", {"id": session["user_id"]}).fetchall()
         return render_template("import.html", username=username)
     else:
-        sales_file = request.files['csv']
+        sales_file = request.files["csv"]
         #sales_file.save(os.path.join(app.config["SALES_DATA"], sales_file.filename))
         f = open(sales_file)
         read = csv.reader(f)
