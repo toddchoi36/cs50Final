@@ -43,8 +43,8 @@ db = scoped_session(sessionmaker(bind=engine))
 @app.route("/", methods=["GET"])
 @login_required
 def index(): 
-    username = db.execute("SELECT username FROM users WHERE id =:id", {"id": session["user_id"]}).fetchall()
-    return render_template("import.html", username=username)
+    sales_file = request.files["csv"]
+    return render_template("import.html", username=sales_file)
 
 
 @app.route("/import", methods=["GET", "POST"])
@@ -54,7 +54,7 @@ def importcsv():
     if request.method == "GET":
         username = db.execute("SELECT username FROM users WHERE id =:id", {"id": session["user_id"]}).fetchall()
         sales_file = request.files["csv"]
-        return render_template("import.html", username=sales_file)
+        return render_template("import.html", username=username)
     else:
         sales_file = request.files["csv"]
         #sales_file.save(os.path.join(app.config["SALES_DATA"], sales_file.filename))
