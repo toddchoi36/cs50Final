@@ -40,7 +40,7 @@ Session(app)
 engine = create_engine("postgres://axsjbatuinzkdr:5f6713832d769e73ceaf17e580665fce3161c61a206ee6dd0f7803125c8f0123@ec2-23-23-36-227.compute-1.amazonaws.com:5432/d88q9qg34dtglm")
 db = scoped_session(sessionmaker(bind=engine))
 
-APP_ROOT = os.path.dirname(os.getcwd)
+APP_ROOT = os.path.dirname(os.getcwd())
 
 @app.route("/", methods=["GET"])
 @login_required
@@ -61,7 +61,7 @@ def importcsv():
 
         if not os.path.isdir(target):
             os.mkdir(target)
-
+            
         for file in request.files.getlist("csv"):
             print(file)
             filename = file.filename
