@@ -68,7 +68,7 @@ def importcsv():
 
         #return redirect("/")
 
-        sales_file = request.files["csv"]
+        sales_file = request.files['csv']
         return sales_file.filename
 
 
