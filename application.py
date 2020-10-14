@@ -56,14 +56,18 @@ def importcsv():
         username = db.execute("SELECT username FROM users WHERE id =:id", {"id": session["user_id"]}).fetchall()
         return render_template("import.html", username=username)
     else:
-        target = os.path.join(APP_ROOT, 'sales/')
+        target = os.path.join(APP_ROOT, 'data/')
         print(target)
-        sales_file = request.files["csv"]
-        print(sales_file)
-        filename = sales_file.filename
-        destination = "/".join([target, filename])
-        print(destination)
-        sales_file.save(destination)
+
+        if not os.path.isdir(target):
+            os.mkdir(target)
+            
+        for file in request.files.getlist("csv"):
+            print(file)
+            filename = file.filename
+            destination = "/".join([target, filename])
+            print(destination)
+            file.save(destination)
 
         f = open(filename)
         read = csv.reader(f)
