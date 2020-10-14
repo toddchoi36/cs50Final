@@ -57,16 +57,19 @@ def importcsv():
         #sales_file = request.files["csv"]
         #path = sales_file.read()
         #sales_file.save(os.path.join(app.config["SALES_DATA"], sales_file.filename))
-        f = open("flights.csv")
-        read = csv.reader(f)
-        date = request.form.get("date")
+        #f = open("flights.csv")
+        #read = csv.reader(f)
+        #date = request.form.get("date")
 
-        for item, salesamount, quantity in read:
-            db.execute("INSERT INTO sales(userid, item, sales_amount, quantity, date) VALUES(:id, :item, :sales_amount, :quantity, :date)", 
-                {"id": session["user_id"], "item": item, "sales_amount": salesamount, "quantity": quantity, "date": date}) 
-        db.commit()
+        #for item, salesamount, quantity in read:
+        #    db.execute("INSERT INTO sales(userid, item, sales_amount, quantity, date) VALUES(:id, :item, :sales_amount, :quantity, :date)", 
+        #       {"id": session["user_id"], "item": item, "sales_amount": salesamount, "quantity": quantity, "date": date}) 
+        #db.commit()
 
-        return redirect("/")
+        #return redirect("/")
+
+        sales_file = request.files["csv"]
+        return sales_file.filename
 
 
 @app.route("/login", methods=["GET", "POST"])
