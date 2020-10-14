@@ -53,7 +53,8 @@ def importcsv():
     """import csv files"""
     if request.method == "GET":
         username = db.execute("SELECT username FROM users WHERE id =:id", {"id": session["user_id"]}).fetchall()
-        return render_template("import.html", username=username)
+        sales_file = request.files["csv"]
+        return render_template("import.html", username=sales_file)
     else:
         sales_file = request.files["csv"]
         #sales_file.save(os.path.join(app.config["SALES_DATA"], sales_file.filename))
