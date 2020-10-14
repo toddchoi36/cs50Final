@@ -57,9 +57,12 @@ def importcsv():
         return render_template("import.html", username=username)
     else:
         target = os.path.join(APP_ROOT, 'sales/')
+        print(target)
         sales_file = request.files["csv"]
+        print(sales_file)
         filename = sales_file.filename
         destination = "/".join([target, filename])
+        print(destination)
         sales_file.save(destination)
 
         f = open(filename)
