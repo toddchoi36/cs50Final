@@ -40,6 +40,8 @@ Session(app)
 engine = create_engine("postgres://axsjbatuinzkdr:5f6713832d769e73ceaf17e580665fce3161c61a206ee6dd0f7803125c8f0123@ec2-23-23-36-227.compute-1.amazonaws.com:5432/d88q9qg34dtglm")
 db = scoped_session(sessionmaker(bind=engine))
 
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 @app.route("/", methods=["GET"])
 @login_required
 def index(): 
@@ -54,10 +56,13 @@ def importcsv():
         username = db.execute("SELECT username FROM users WHERE id =:id", {"id": session["user_id"]}).fetchall()
         return render_template("import.html", username=username)
     else:
-        #sales_file = request.files["csv"]
-        #path = sales_file.read()
-        #sales_file.save(os.path.join(app.config["SALES_DATA"], sales_file.filename))
-        f = open("sales/flights.csv")
+        target = os.path.join(APP_ROOT, 'sales/')
+        sales_file = request.files["csv"]
+        filename = sales_file.filename
+        destination = "/".join([target, filename])
+        sales_file.save(destination)
+
+        f = open(filename)
         read = csv.reader(f)
         date = request.form.get("date")
 
