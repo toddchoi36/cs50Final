@@ -1,4 +1,4 @@
-import os, sqlalchemy, csv, requests
+import os, sqlalchemy, csv
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -39,15 +39,11 @@ Session(app)
 engine = create_engine("postgres://axsjbatuinzkdr:5f6713832d769e73ceaf17e580665fce3161c61a206ee6dd0f7803125c8f0123@ec2-23-23-36-227.compute-1.amazonaws.com:5432/d88q9qg34dtglm")
 db = scoped_session(sessionmaker(bind=engine))
 
-url = 'https://httpbin.org/post'
-file = 
-
 @app.route("/", methods=["GET"])
 @login_required
 def index():
     
     return apology("hope", 403)
-
 
 
 @app.route("/import", methods=["GET", "POST"])
