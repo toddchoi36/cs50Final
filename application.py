@@ -55,8 +55,8 @@ def importcsv():
         username = db.execute("SELECT username FROM users WHERE id =:id", {"id": session["user_id"]}).fetchall()
         return render_template("import.html", username=username)
     else:
-        sales_file = request.files["csv"].file.name
-        path = os.path.sales_file
+        sales_file = request.files["csv"]
+        path = sales_file.read()
         #sales_file.save(os.path.join(app.config["SALES_DATA"], sales_file.filename))
         f = open(path)
         read = csv.reader(f)
